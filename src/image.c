@@ -768,7 +768,9 @@ int wolfBoot_open_image_address(struct wolfBoot_image* img, uint8_t* image)
 #ifdef WOLFBOOT_FIXED_PARTITIONS
 int wolfBoot_open_image(struct wolfBoot_image *img, uint8_t part)
 {
+#ifdef MMU
     uint32_t *size;
+#endif
     uint8_t *image;
     if (!img)
         return -1;
@@ -860,7 +862,6 @@ int wolfBoot_verify_authenticity(struct wolfBoot_image *img)
 #else
 int wolfBoot_verify_authenticity(struct wolfBoot_image *img)
 {
-    int ret;
     uint8_t *stored_signature;
     uint16_t stored_signature_size;
     uint8_t *pubkey_hint;
